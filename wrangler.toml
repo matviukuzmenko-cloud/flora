@@ -6,7 +6,7 @@ compatibility_date = "2026-10-27"
 SITE_ORIGIN = "https://flora-anotomy.work.gd"
 SUPABASE_URL = "https://orvlpmbbzymupnsgydoe.supabase.co"
 VAPID_PUBLIC_KEY = "BF7JygE9293jwgMccpvZbxBHqwhx4RhfTUHWLTldz_1BvklqB-403ReZqNOnSdqYnLvSxW_6X-TNOBvJClfjORw"
-VAPID_SUBJECT = "mailto:admin@example.com"
+VAPID_SUBJECT = "mailto:ukrainman21012@gmail.com"
 
 [triggers]
 crons = ["0 9 * * *"]
