@@ -42,7 +42,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://wsrv.nl">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css?v=113">
+  <link rel="stylesheet" href="./style.css?v=115">
 </head>
 <body>
   <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -280,62 +280,96 @@
     </section>
 
     <section class="page" id="page-garden" data-page="garden" aria-label="Мой сад" hidden>
-      <div class="page-title-row">
-        <div><div class="eyebrow">Личный помощник по уходу</div><h1>Мой <span class="gradient-text">сад</span></h1><p class="muted garden-intro">Проверьте состояние растения по фото, сохраняйте заметки в облачном дневнике и настройте напоминания о поливе.</p></div>
-      </div>
+      <header class="garden-hero">
+        <div class="garden-hero-copy">
+          <span class="garden-hero-kicker"><svg class="ui-icon"><use href="#icon-leaf"></use></svg> ПРОСТРАНСТВО ЗАБОТЫ</span>
+          <h1>Ваш сад.<br><span>Ваша история.</span></h1>
+          <p>Понаблюдайте за растениями, спросите Flora о фото или запишите маленькую победу в уходе.</p>
+        </div>
+        <div class="garden-hero-art" aria-hidden="true">
+          <span class="garden-hero-orbit garden-hero-orbit-one"></span>
+          <span class="garden-hero-orbit garden-hero-orbit-two"></span>
+          <svg class="ui-icon"><use href="#icon-plant"></use></svg>
+        </div>
+        <nav class="garden-shortcuts" aria-label="Быстрые действия сада">
+          <button type="button" data-garden-scroll="garden-diagnosis"><svg class="ui-icon"><use href="#icon-search"></use></svg><span>Проверить по фото</span><span aria-hidden="true">↓</span></button>
+          <button type="button" data-garden-scroll="garden-journal"><svg class="ui-icon"><use href="#icon-note"></use></svg><span>Запись в дневник</span><span aria-hidden="true">↓</span></button>
+          <button type="button" data-garden-scroll="garden-care"><svg class="ui-icon"><use href="#icon-calendar"></use></svg><span>План ухода</span><span aria-hidden="true">↓</span></button>
+        </nav>
+      </header>
       <div class="garden-feature-grid">
-        <section class="surface-card garden-panel" aria-labelledby="garden-diagnosis-title">
-          <div class="eyebrow">Анализ фотографии</div>
-          <h2 id="garden-diagnosis-title">Что происходит с растением?</h2>
-          <p>Загрузите чёткое фото листьев или всего растения. Flora подскажет вероятные причины и безопасные проверки. Фото отправляется в AI-сервис для анализа, но не сохраняется автоматически.</p>
-          <label class="garden-file-label" for="garden-diagnosis-file">Выбрать фото растения</label>
-          <input id="garden-diagnosis-file" type="file" accept="image/jpeg,image/png,image/webp">
-          <img class="garden-preview" id="garden-diagnosis-preview" alt="Предпросмотр фото для анализа" hidden>
-          <button class="button full" id="garden-diagnose" type="button" disabled>Проверить растение</button>
-          <p class="garden-status" id="garden-diagnosis-status" role="status" aria-live="polite"></p>
+        <section class="surface-card garden-panel garden-diagnosis-panel" id="garden-diagnosis" aria-labelledby="garden-diagnosis-title">
+          <div class="garden-panel-heading">
+            <span class="garden-panel-icon"><svg class="ui-icon"><use href="#icon-spark"></use></svg></span>
+            <div><div class="eyebrow">ФОТО-ПОМОЩНИК FLORA</div><h2 id="garden-diagnosis-title">Давайте посмотрим поближе</h2></div>
+            <span class="garden-panel-tag">AI-анализ</span>
+          </div>
+          <div class="garden-diagnosis-layout">
+            <div class="garden-diagnosis-copy">
+              <p>Добавьте фото листьев или всего растения. Flora опишет видимые признаки и предложит, что безопасно проверить в первую очередь.</p>
+              <ul class="garden-checklist">
+                <li>Снимок листьев при хорошем освещении</li>
+                <li>Фото не сохраняется без вашего действия</li>
+                <li>Результат — подсказка, а не диагноз специалиста</li>
+              </ul>
+              <label class="garden-file-label" for="garden-diagnosis-file"><svg class="ui-icon"><use href="#icon-download"></use></svg><span>Выбрать фото растения</span></label>
+              <input id="garden-diagnosis-file" type="file" accept="image/jpeg,image/png,image/webp" capture="environment">
+              <button class="button full garden-primary-action" id="garden-diagnose" type="button" disabled>Проверить растение</button>
+              <p class="garden-status" id="garden-diagnosis-status" role="status" aria-live="polite"></p>
+            </div>
+            <div class="garden-diagnosis-visual">
+              <div class="garden-photo-placeholder" id="garden-photo-placeholder"><svg class="ui-icon"><use href="#icon-plant"></use></svg><span>Ваше фото появится здесь</span></div>
+              <img class="garden-preview" id="garden-diagnosis-preview" alt="Предпросмотр фото для анализа" hidden>
+            </div>
+          </div>
           <article class="garden-diagnosis-result" id="garden-diagnosis-result" aria-live="polite" hidden>
-            <h3>Результат анализа</h3><div id="garden-diagnosis-text"></div>
+            <h3>Подсказка Flora</h3><div id="garden-diagnosis-text"></div>
             <button class="button secondary small" id="garden-save-diagnosis" type="button" hidden>Добавить в дневник</button>
           </article>
-          <p class="garden-disclaimer">Результат ориентировочный и не заменяет консультацию специалиста. Не применяйте препараты только на основании AI-анализа.</p>
+          <p class="garden-disclaimer">AI может ошибаться. Не применяйте препараты только на основании анализа. При серьёзных симптомах обратитесь к специалисту.</p>
         </section>
 
-        <section class="surface-card garden-panel" aria-labelledby="garden-journal-title">
-          <div class="eyebrow">Ваша история</div>
-          <h2 id="garden-journal-title">Дневник растений</h2>
+        <section class="surface-card garden-panel" id="garden-journal" aria-labelledby="garden-journal-title">
+          <div class="garden-panel-heading">
+            <span class="garden-panel-icon"><svg class="ui-icon"><use href="#icon-note"></use></svg></span>
+            <div><div class="eyebrow">ЛИЧНАЯ ЛЕТОПИСЬ</div><h2 id="garden-journal-title">Дневник растений</h2></div>
+          </div>
           <p class="garden-account-hint" id="garden-account-hint">Войдите в аккаунт, чтобы синхронизировать дневник между устройствами.</p>
           <form id="garden-journal-form">
-            <label for="garden-journal-plant">Растение</label>
+            <label for="garden-journal-plant">Название растения</label>
             <input id="garden-journal-plant" maxlength="80" placeholder="Например, монстера" required>
-            <label for="garden-journal-date">Дата записи</label>
-            <input id="garden-journal-date" type="date" required>
-            <label for="garden-journal-note">Наблюдения</label>
+            <div class="garden-form-row">
+              <div><label for="garden-journal-date">Дата</label><input id="garden-journal-date" type="date" required></div>
+              <div><label for="garden-journal-photo">Фото (необязательно)</label><input id="garden-journal-photo" type="file" accept="image/jpeg,image/png,image/webp" capture="environment"></div>
+            </div>
+            <label for="garden-journal-note">Наблюдение</label>
             <textarea id="garden-journal-note" maxlength="1500" rows="4" placeholder="Как выглядит растение? Что изменилось?" required></textarea>
-            <label for="garden-journal-photo">Фото для записи (необязательно)</label>
-            <input id="garden-journal-photo" type="file" accept="image/jpeg,image/png,image/webp">
             <button class="button full" id="garden-journal-submit" type="submit">Сохранить запись</button>
           </form>
           <p class="garden-status" id="garden-journal-status" role="status" aria-live="polite"></p>
           <div class="garden-journal-list" id="garden-journal-list" aria-live="polite"></div>
         </section>
 
-        <section class="surface-card garden-panel garden-care-panel" aria-labelledby="garden-care-title">
-          <div class="eyebrow">Персональный график</div>
-          <h2 id="garden-care-title">Напоминания об уходе</h2>
-          <p>Задайте примерный интервал для своих растений и отмечайте полив. Напоминание — повод проверить почву, а не указание поливать вслепую.</p>
+        <section class="surface-card garden-panel garden-care-panel" id="garden-care" aria-labelledby="garden-care-title">
+          <div class="garden-panel-heading">
+            <span class="garden-panel-icon"><svg class="ui-icon"><use href="#icon-calendar"></use></svg></span>
+            <div><div class="eyebrow">МЯГКИЕ НАПОМИНАНИЯ</div><h2 id="garden-care-title">Ритм ухода</h2></div>
+          </div>
+          <p>Выберите удобный интервал и отмечайте полив. Напоминание — повод проверить почву, а не призыв поливать вслепую.</p>
           <form id="garden-care-form">
-            <label for="garden-care-plant">Растение</label>
-            <input id="garden-care-plant" maxlength="80" placeholder="Название растения" required>
-            <label for="garden-care-interval">Напоминать через (дней)</label>
-            <input id="garden-care-interval" type="number" min="1" max="90" value="7" required>
-            <button class="button full" type="submit">Добавить в график</button>
+            <label for="garden-care-plant">Название растения</label>
+            <input id="garden-care-plant" maxlength="80" placeholder="Например, фикус" required>
+            <div class="garden-form-row garden-care-form-row">
+              <div><label for="garden-care-interval">Интервал, дней</label><input id="garden-care-interval" type="number" min="1" max="90" value="7" required></div>
+              <button class="button garden-add-care" type="submit">Добавить растение</button>
+            </div>
           </form>
           <p class="garden-status" id="garden-care-status" role="status" aria-live="polite"></p>
           <div class="garden-care-list" id="garden-care-list" aria-live="polite"></div>
           <div class="garden-push-controls">
-            <button class="button secondary" id="garden-push-enable" type="button">Включить уведомления</button>
+            <div><strong>Напоминать на устройстве</strong><p id="garden-push-status" class="garden-status" role="status" aria-live="polite">Для push нужны вход и разрешение браузера.</p></div>
+            <button class="button secondary" id="garden-push-enable" type="button">Включить</button>
             <button class="button ghost small" id="garden-push-disable" type="button" hidden>Отключить</button>
-            <p class="garden-status" id="garden-push-status" role="status" aria-live="polite">Push-уведомления требуют входа и разрешения браузера.</p>
           </div>
         </section>
       </div>
@@ -375,27 +409,6 @@
       </section>
     </section>
 
-    <section class="page" id="page-picker" data-page="picker" aria-label="Подбор по настроению" hidden>
-      <div class="page-title-row"><div><div class="eyebrow">Персональная рекомендация</div><h1>Подбор <span class="gradient-text">по настроению</span></h1><p class="muted" style="margin:0;font-size:12px">Выберите настроение, класс и семейство растения из всего проверенного атласа.</p></div></div>
-      <div class="feature-layout">
-        <form class="surface-card picker-card" id="picker-form">
-          <div class="widget-head"><h2>Что вам сейчас близко?</h2><span class="challenge-badge"><svg class="ui-icon"><use href="#icon-spark"></use></svg></span></div>
-          <div class="picker-fields">
-            <div class="field"><label for="picker-mood">Настроение</label><select id="picker-mood"><option value="all">Любое</option><option value="Спокойствие">Спокойствие</option><option value="Радость">Радость</option><option value="Нежность">Нежность</option><option value="Энергия">Энергия</option><option value="Мечтательность">Мечтательность</option></select></div>
-            <div class="field"><label for="picker-class">Группа растений</label><select id="picker-class"><option value="all">Любая группа</option><option value="Цветы">Цветы</option><option value="Кактусы">Кактусы</option><option value="Суккуленты">Суккуленты</option><option value="Папоротники">Папоротники</option><option value="Хвойные">Хвойные</option><option value="Деревья и кустарники">Деревья и кустарники</option></select></div>
-            <div class="field"><label for="picker-family">Семейство</label><select id="picker-family"><option value="all">Любое семейство</option></select></div>
-          </div>
-          <button class="button full" type="submit">Подобрать растение →</button>
-          <div class="status-message picker-result" id="picker-result" role="status">Ваше цветочное совпадение появится здесь.</div>
-        </form>
-        <aside class="surface-card home-widget">
-          <div class="challenge-badge">✧</div><h2 style="margin-top:14px">Не ищите идеальное растение.</h2>
-          <p class="muted" style="font-size:13px;line-height:1.8;margin-top:12px">Ищите тот, который подходит именно сегодняшнему дню. Результат можно сохранить в избранное или открыть в атласе.</p>
-          <button class="button secondary" type="button" data-go="catalog">Смотреть весь атлас</button>
-        </aside>
-      </div>
-    </section>
-
     <section class="page" id="page-guide" data-page="guide" aria-label="О проекте и инструкция" hidden>
       <div class="page-title-row"><div><div class="eyebrow">Идея проекта</div><h1>Ближе к природе — <span class="gradient-text">каждый день</span></h1><p class="muted about-page-lead">Flora-Anotomy помогает открывать растения, учиться заботиться о них и собирать собственную зелёную коллекцию.</p></div></div>
       <div class="about-banner surface-card">
@@ -404,6 +417,14 @@
           <div><div class="eyebrow">Ваш личный ботанический атлас</div><h2>У каждого растения своя история</h2></div>
         </div>
         <p class="about-banner-intro">Здесь встречаются проверенные фотографии, понятные карточки растений и полезные инструменты для вашего домашнего сада. Исследуйте атлас в своём темпе: аккаунт не обязателен.</p>
+        <article class="about-update" aria-labelledby="about-update-title">
+          <span class="about-update-icon" aria-hidden="true"><svg class="ui-icon"><use href="#icon-spark"></use></svg></span>
+          <div>
+            <div class="eyebrow">НОВОЕ ОБНОВЛЕНИЕ</div>
+            <h3 id="about-update-title">Мой сад стал удобнее</h3>
+            <p>Обновили раздел сада: фото-помощник, дневник растений и план ухода собраны в одном месте, а быстрые кнопки ведут прямо к нужному инструменту. «Случайное растение» теперь занимает центральное место в нижнем меню.</p>
+          </div>
+        </article>
         <div class="about-facts" aria-label="О проекте в цифрах">
           <div class="about-fact"><strong>1 111</strong><span>карточек растений</span></div>
           <div class="about-fact"><strong>6</strong><span>ботанических групп</span></div>
@@ -436,7 +457,7 @@
           </article>
           <article class="about-detail">
             <span class="about-detail-icon"><svg class="ui-icon"><use href="#icon-calendar"></use></svg></span>
-            <div><h3>Напоминания и быстрые отмены</h3><p>В коллекции Flora подскажет, когда стоит проверить полив, и даст отменить недавнее изменение коллекции, полива или сезонной записи.</p></div>
+            <div><h3>Мой сад и уход</h3><p>Проверьте растение по фото, ведите дневник с личными наблюдениями и настройте напоминания. Фото для AI-анализа не сохраняется автоматически; push требует разрешения браузера.</p></div>
           </article>
           <article class="about-detail">
             <span class="about-detail-icon"><svg class="ui-icon"><use href="#icon-download"></use></svg></span>
@@ -451,7 +472,7 @@
       </div>
       <section class="guide-howto surface-card" aria-labelledby="flora-guide-title">
         <h2 id="flora-guide-title">Знакомьтесь: Flora</h2>
-        <p class="guide-howto-intro">Flora — ботанический ИИ-помощник Flora-Anotomy: она не только отвечает на вопросы, но и помогает управлять сайтом командами в чате. Попросите открыть раздел, найти растение, применить фильтр каталога или показать карточку вида. Flora также учитывает контекст беседы, может опираться на карточку растения и искать актуальную информацию в интернете с показом источников. Откройте чат на главной странице или нажмите кнопку-помощник внизу экрана.</p>
+        <p class="guide-howto-intro">Flora — ботанический ИИ-помощник Flora-Anotomy. Она отвечает на вопросы о растениях и уходе, а ещё помогает ориентироваться по сайту. В разделе «Мой сад» можно попросить её посмотреть фото растения; вывод ИИ ориентировочный. Откройте чат кнопкой Flora внизу экрана.</p>
         <div class="guide-howto-list">
           <details class="guide-howto-item" open>
             <summary>О чём можно спросить</summary>
@@ -459,7 +480,7 @@
           </details>
           <details class="guide-howto-item">
             <summary>Как попросить Flora управлять сайтом</summary>
-            <p>Напишите, что нужно сделать: «Открой каталог», «Перейди в мою коллекцию», «Покажи сезонный трекер» или «Открой игру». Flora переключит страницу. Можно попросить найти конкретное растение в каталоге, открыть его карточку или показать группу — например, «Найди монстеру», «Открой карточку фикуса Бенджамина» или «Покажи кактусы». Для перехода к конкретному виду используйте его название.</p>
+            <p>Напишите, что нужно сделать: «Открой каталог», «Перейди в мой сад», «Открой мою коллекцию», «Покажи сезонный трекер» или «Открой игру». Flora переключит страницу. Можно попросить найти конкретное растение в каталоге или открыть его карточку.</p>
           </details>
           <details class="guide-howto-item">
             <summary>Когда Flora ищет информацию в интернете</summary>
@@ -488,16 +509,20 @@
             <p>Нажмите на сердечко в карточке растения, чтобы сохранить его, а затем откройте «Коллекцию». В подробной карточке можно оставить заметку; для сохранённых растений в коллекции также доступны отметки полива.</p>
           </details>
           <details class="guide-howto-item">
-            <summary>Открыть «Мой сад»</summary>
-            <p>Загрузите фото для ориентировочного AI-анализа, сохраните наблюдение в облачном дневнике или добавьте растение в график ухода. Фото анализа не сохраняется автоматически. Для дневника и напоминаний войдите в аккаунт; для push-разрешений потребуется согласие браузера.</p>
+            <summary>Проверить растение по фото</summary>
+            <p>В разделе «Мой сад» выберите фото листьев или целого растения. Flora опишет видимые признаки и предложит, что проверить. Фото отправляется AI-сервису для анализа и не сохраняется автоматически. Ответ может быть неточным и не заменяет специалиста.</p>
+          </details>
+          <details class="guide-howto-item">
+            <summary>Вести дневник и настроить уход</summary>
+            <p>Войдите в аккаунт, чтобы синхронизировать записи и график между устройствами. Фото дневника лежат в приватном хранилище. Для push включите уведомления в разделе «Мой сад» и разрешите их в браузере; проверяйте почву перед поливом.</p>
           </details>
           <details class="guide-howto-item">
             <summary>Следить за сезоном</summary>
             <p>Перейдите в «Сезон», выберите месяц и год и найдите растение. Нажмите «Добавить», чтобы сохранить своё наблюдение за цветением.</p>
           </details>
           <details class="guide-howto-item">
-            <summary>Подобрать или открыть случайное растение</summary>
-            <p>В разделе «Подбор» выберите настроение и при желании группу или семейство. Для случайного открытия нажмите «Случайное растение» в нижнем меню. На главной также каждый день показывается новое «Растение дня»; нажмите на подпись к фото, чтобы открыть его источник.</p>
+            <summary>Открыть случайное растение</summary>
+            <p>Нажмите центральную кнопку «Случайное» в нижней панели. На главной также каждый день показывается новое «Растение дня»; нажмите на подпись к фото, чтобы открыть его источник.</p>
           </details>
           <details class="guide-howto-item">
             <summary>Как устроен помощник Flora</summary>
@@ -520,16 +545,16 @@
             <p>Нажмите Ctrl + Shift + A, чтобы открыть локальную панель управления. В ней можно экспортировать каталог в CSV или импортировать изменения для существующих карточек.</p>
           </details>
         </div>
-        <p class="guide-howto-storage">Коллекция и заметки хранятся только в браузере на этом устройстве; при очистке данных браузера они пропадут.</p>
+        <p class="guide-howto-storage">Без аккаунта данные остаются в браузере на этом устройстве. После входа коллекция, заметки, сезонные наблюдения, дневник и график ухода синхронизируются с аккаунтом; фото дневника загружаются в приватное хранилище.</p>
       </section>
       <div class="guide-grid">
         <article class="surface-card guide-card"><div class="guide-icon"><svg class="ui-icon"><use href="#icon-search"></use></svg></div><h3>Поиск и группы</h3><p>В атласе собраны карточки в шести группах. Ищите по русскому или научному названию, сортируйте результаты и фильтруйте по группе; если совпадений нет, каталог подскажет изменить запрос.</p></article>
         <article class="surface-card guide-card"><div class="guide-icon"><svg class="ui-icon"><use href="#icon-sun"></use></svg></div><h3>Фильтры ухода</h3><p>Сузьте каталог по ориентировочному освещению и частоте полива. Эти значения помогают начать поиск, но не заменяют рекомендации для конкретного сорта и условий выращивания.</p></article>
-        <article class="surface-card guide-card"><div class="guide-icon"><svg class="ui-icon"><use href="#icon-heart"></use></svg></div><h3>Моя коллекция и заметки</h3><p>Нажмите на сердечко на карточке или в подробном описании, чтобы добавить растение в «Мою коллекцию». Оставляйте личные заметки в карточке; зелёный значок блокнота отмечает растения с сохранёнными записями. Коллекция и заметки доступны только в этом браузере.</p></article>
+        <article class="surface-card guide-card"><div class="guide-icon"><svg class="ui-icon"><use href="#icon-heart"></use></svg></div><h3>Моя коллекция и заметки</h3><p>Нажмите на сердечко на карточке или в подробном описании, чтобы добавить растение в «Мою коллекцию». Оставляйте личные заметки в карточке; зелёный значок блокнота отмечает растения с сохранёнными записями. После входа данные синхронизируются с аккаунтом.</p></article>
         <article class="surface-card guide-card"><div class="guide-icon"><svg class="ui-icon"><use href="#icon-water"></use></svg></div><h3>Отметки полива</h3><p>В коллекции можно отметить дату полива. Атлас показывает время с последней отметки и примерный интервал, рассчитанный по общим ориентирам ухода; это не точное расписание и не замена проверке грунта.</p></article>
         <article class="surface-card guide-card"><div class="guide-icon"><svg class="ui-icon"><use href="#icon-transfer"></use></svg></div><h3>Сравнение растений</h3><p>Выберите две карточки для сравнения группы, семейства, ориентиров освещения и полива, а также сложности ухода. Функция доступна из каталога и коллекции.</p></article>
         <article class="surface-card guide-card"><div class="guide-icon"><svg class="ui-icon"><use href="#icon-search"></use></svg></div><h3>Недавно просмотренные</h3><p>Каталог показывает до пяти последних открытых карточек. Список можно очистить; он хранится локально в текущем браузере.</p></article>
-        <article class="surface-card guide-card"><div class="guide-icon"><svg class="ui-icon"><use href="#icon-calendar"></use></svg></div><h3>Сезонный трекер</h3><p>Отмечайте растения, цветение которых наблюдали в конкретном месяце и году. Трекер хранит личные наблюдения на устройстве и не подменяет справочные данные о сезонах цветения.</p></article>
+        <article class="surface-card guide-card"><div class="guide-icon"><svg class="ui-icon"><use href="#icon-calendar"></use></svg></div><h3>Сезонный трекер</h3><p>Отмечайте растения, цветение которых наблюдали в конкретном месяце и году. Наблюдения синхронизируются с аккаунтом; это личные заметки, а не универсальный календарь цветения.</p></article>
         <article class="surface-card guide-card"><div class="guide-icon"><svg class="ui-icon"><use href="#icon-leaf"></use></svg></div><h3>Игра «Угадай растение»</h3><p>Угадайте растение по фотографии: в каждом раунде показывается снимок и четыре варианта названия. За правильные ответы начисляются очки.</p></article>
         <article class="surface-card guide-card"><div class="guide-icon"><svg class="ui-icon"><use href="#icon-file"></use></svg></div><h3>Ботаническая карточка PDF</h3><p>В подробной карточке растения можно скачать памятку по уходу с фотографией, названием, описанием и основными рекомендациями.</p></article>
         <article class="surface-card guide-card"><div class="guide-icon"><svg class="ui-icon"><use href="#icon-transfer"></use></svg></div><h3>Импорт и экспорт CSV</h3><p>Откройте локальную панель сочетанием Ctrl + Shift + A. Экспортируйте каталог и импортируйте изменения русских названий, описаний, жизненной формы и категории для уже существующих карточек. Импорт новых видов без проверенных фото не поддерживается; изменения остаются в этом браузере.</p></article>
@@ -542,7 +567,7 @@
       <div class="quick-links">
         <button class="quick-link" type="button" data-go="catalog"><span class="quick-link-icon"><svg class="ui-icon"><use href="#icon-book"></use></svg></span><span>Перейти в каталог</span><span aria-hidden="true">→</span></button>
         <button class="quick-link" type="button" data-go="season"><span class="quick-link-icon"><svg class="ui-icon"><use href="#icon-calendar"></use></svg></span><span>Открыть сезонный трекер</span><span aria-hidden="true">→</span></button>
-        <button class="quick-link" type="button" data-go="picker"><span class="quick-link-icon"><svg class="ui-icon"><use href="#icon-spark"></use></svg></span><span>Запустить подбор</span><span aria-hidden="true">→</span></button>
+        <button class="quick-link" type="button" data-go="garden"><span class="quick-link-icon"><svg class="ui-icon"><use href="#icon-plant"></use></svg></span><span>Открыть мой сад</span><span aria-hidden="true">→</span></button>
       </div>
     </section>
   </main>
@@ -562,9 +587,8 @@
   <nav class="bottom-dock" role="navigation" aria-label="Основные разделы">
     <button class="dock-tab" type="button" data-go="home"><span class="dock-icon"><svg class="ui-icon"><use href="#icon-home"></use></svg></span><span class="dock-label">Главная</span></button>
     <button class="dock-tab" type="button" data-go="catalog"><span class="dock-icon"><svg class="ui-icon"><use href="#icon-book"></use></svg></span><span class="dock-label">Атлас</span></button>
+    <button class="dock-tab dock-tab-featured" type="button" data-go="luck"><span class="dock-icon"><svg class="ui-icon"><use href="#icon-dice"></use></svg></span><span class="dock-label">Случайное</span></button>
     <button class="dock-tab" type="button" data-go="garden"><span class="dock-icon"><svg class="ui-icon"><use href="#icon-plant"></use></svg></span><span class="dock-label">Мой сад</span></button>
-    <button class="dock-tab" type="button" data-go="luck"><span class="dock-icon"><svg class="ui-icon"><use href="#icon-dice"></use></svg></span><span class="dock-label">Случайное растение</span></button>
-    <button class="dock-tab" type="button" data-go="picker"><span class="dock-icon"><svg class="ui-icon"><use href="#icon-spark"></use></svg></span><span class="dock-label">Подбор</span></button>
     <button class="dock-tab" type="button" data-go="guide"><span class="dock-icon"><svg class="ui-icon"><use href="#icon-info"></use></svg></span><span class="dock-label">О проекте</span></button>
   </nav>
 
@@ -656,13 +680,13 @@
   <script src="./flora-new-pack.js"></script>
   <script src="./flora-1000.js"></script>
   <script src="./flora-1111.js"></script>
-  <script src="./script.js?v=110"></script>
+  <script src="./script.js?v=111"></script>
   <script>window.FLORA_AI_ENDPOINT = "https://flora-anotomy-ai.ukrainman21012.workers.dev";</script>
   <script src="./ai-chat.js?v=107"></script>
   <script src="./supabase-config.js?v=2"></script>
   <script src="./supabase-auth.js?v=15"></script>
   <script>window.FLORA_VAPID_PUBLIC_KEY = "BF7JygE9293jwgMccpvZbxBHqwhx4RhfTUHWLTldz_1BvklqB-403ReZqNOnSdqYnLvSxW_6X-TNOBvJClfjORw";</script>
-  <script src="./garden.js?v=1"></script>
+  <script src="./garden.js?v=2"></script>
   <script>
     (() => {
       const paletteSelect = document.querySelector("#palette-select");
